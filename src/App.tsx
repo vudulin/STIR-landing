@@ -1,34 +1,89 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { styled } from '@linaria/react'
+import React from "react"
+import { styled } from "@linaria/react"
+import PreviousIcon from "./assets/icons/left-arrow.svg"
+import NextIcon from "./assets/icons/right-arrow.svg"
 
-function App() {
+import { Container } from "./Container"
+
+const App: React.FC<any> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Footer />
-      </header>
-    </div>
-  );
+    <Wrapper>
+      <Next>
+        <NextIcon />
+      </Next>
+      <Header></Header>
+      <MainContent>
+        <Container children={"Yeahooo"} />
+      </MainContent>
+      <Footer></Footer>
+      <Previous>
+        <PreviousIcon />
+      </Previous>
+    </Wrapper>
+  )
 }
 
-const Footer = styled.div`
-  width: 100%;
-  height: 30px;
-  background-color: #f5f5;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  grid-template-rows: 100px 1fr 100px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f3f3f3;
+`
+const TabContainer = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
+`
+const MainContent = styled(TabContainer)`
+  grid-row-start: 2;
+  grid-row-end: 3;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: yellow;
+`
+const Header = styled(TabContainer)`
+  grid-row-start: 1;
+  grid-row-end: 2;
+  background-color: blue;
+`
+const Footer = styled(TabContainer)`
+  grid-row-start: 3;
+  grid-row-end: 4;
+  background-color: red;
+`
+const SlideTab = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+    to top,
+    transparent 20%,
+    rgba(129, 122, 122, 0.616) 50%,
+    transparent 80%
+  );
+  grid-row-start: 1;
+  grid-row-end: 4;
+  z-index: 3;
+  opacity: 0;
+  transition: 0.8s;
+  &:hover {
+    opacity: 0.5;
+  }
+`
+const Next = styled(SlideTab)`
+  grid-column-start: 1;
+  grid-column-end: 2;
+`
+const Previous = styled(SlideTab)`
+  grid-column-start: 3;
+  grid-column-end: 4;
 `
 
-export default App;
+export default App
