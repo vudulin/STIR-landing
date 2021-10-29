@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { styled } from '@linaria/react'
 
 function App() {
   return (
@@ -18,9 +19,16 @@ function App() {
         >
           Learn React
         </a>
+        <Footer />
       </header>
     </div>
   );
 }
+
+const Footer = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: #f5f5;
+`
 
 export default App;
