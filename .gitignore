@@ -23,4 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 
 src/.linaria_cache/
-src/.linaria_cache/src/App.linaria.css
