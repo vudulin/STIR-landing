@@ -75,30 +75,20 @@ const Wrapper = styled.div<{ blackBack: boolean }>`
   display: grid;
   grid-template-columns: 50px 1fr 50px;
   /* grid-template-rows: 100px 1fr 100px; */
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   margin: 0;
   padding: 0;
   background-color: ${(props) => (!props.blackBack ? "#191919" : "#ffffff")};
   color: ${(props) => (!props.blackBack ? "#ffffff" : "#000000")};
 `
-const TabContainer = styled.div`
+
+const MainContent = styled.div`
   grid-column-start: 2;
   grid-column-end: 3;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 0 50px; */
-`
-const MainContent = styled(TabContainer)`
-  /* grid-row-start: 1; */
-  /* grid-row-start: 2; */
-  /* grid-row-end: 4; */
-  /* grid-row-end: 3; */
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  /* background-color: #daf08c; */
+
+  /* height: 100vh; */
 `
 // const Header = styled(TabContainer)`
 //   grid-row-start: 1;
