@@ -1,8 +1,19 @@
-import React from "react"
+import React, { useState } from "react"
 import { styled } from "@linaria/react"
 import LogoIcon from "../assets/icons/logo.svg"
+import { Slider } from "components/Slider"
 
 export const Main: React.FC<{}> = () => {
+  const [email, setEmail] = useState("")
+  console.log(email)
+  const saveEmail = (e: React.FormEvent) => {
+    e.preventDefault()
+    const target = e.target as typeof e.target & {
+      0: { value: string }
+    }
+    setEmail(target["0"].value)
+    target["0"].value = ""
+  }
   return (
     <Wrapper>
       <Header>
@@ -17,12 +28,19 @@ export const Main: React.FC<{}> = () => {
           Meet Stir. The financial studio for collaborating, splitting revenue,
           money management and metrics—all in one place
         </Description>
-        <GetStarted>
-          <Input type="email" placeholder="Enter your email" />
-          <Button type="submit">Get started</Button>
-        </GetStarted>
+        {email.length > 0 ? (
+          `Thank you for subscribing ${email}`
+        ) : (
+          <GetStarted onSubmit={saveEmail}>
+            <Input
+              type="email"
+              placeholder="Enter your email" /* defaultValue={email} */
+            />
+            <Button type="submit">Get started</Button>
+          </GetStarted>
+        )}
       </Content>
-      <Slider></Slider>
+      <Slider />
       <WindowContainer>
         <Window>asfa</Window>
       </WindowContainer>
@@ -38,6 +56,11 @@ const Wrapper = styled.div`
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `
 const Header = styled.div`
   display: flex;
@@ -117,13 +140,7 @@ const Button = styled.button`
   }
 `
 
-const Slider = styled.div`
-  display: flex;
-  align-items: center;
-  height: 324px;
-  margin: 0 -120px;
-  background-color: #93ccce;
-`
+
 const WindowContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -137,7 +154,7 @@ const Window = styled.div`
   align-items: center;
   width: 1039px;
   height: 695px;
-  background: url(.png), #7349ff;
+  background: #7349ff;
   box-shadow: 0px -16px 64px rgba(43, 42, 53, 0.32);
   border-radius: 12px;
   box-sizing: border-box;
