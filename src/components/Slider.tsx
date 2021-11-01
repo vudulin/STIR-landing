@@ -1,24 +1,36 @@
 import React from "react"
 import { styled } from "@linaria/react"
 
+import anna from "assets/png/Anna.png"
+import airrack from "assets/png/Airrack.png"
+import lizaKoshy from "assets/png/Liza_Koshy.png"
+import peterHollens from "assets/png/Peter_Hollens.png"
+import jessica from "assets/png/Jessica.png"
+
+import Youtube from "../assets/icons/youtube.svg"
+import Instagram from "../assets/icons/instagram.svg"
+import Twitter from "../assets/icons/twitter.svg"
+import Shopify from "../assets/icons/shopify.svg"
+
 type DataTypes = {
   id?: number
   name: string
   profession: string
   avatar: string
   badges?: {
-    tags: string[]
+    tags: React.ReactNode[]
     position: "left" | "right"
   }
 }
+
 const profiles = [
   {
     id: 1,
-    name: "Ilona",
+    name: "Anna",
     profession: "Podcaster",
-    avatar: "../assets/png/...",
+    avatar: anna,
     badges: {
-      tags: ["youtube", "instagram"],
+      tags: [<Youtube />, <Instagram />],
       position: "right",
     },
   },
@@ -26,39 +38,39 @@ const profiles = [
     id: 2,
     name: "Airrack",
     profession: "Youtuber",
-    avatar: "../assets/png/...",
+    avatar: airrack,
     badges: {
-      tags: ["youtube"],
+      tags: [<Youtube />],
       position: "right",
     },
   },
   {
     id: 3,
-    name: "Lisa Kasley",
+    name: "Liza Koshy",
     profession: "Creator",
-    avatar: "../assets/png/...",
+    avatar: lizaKoshy,
     badges: {
-      tags: ["youtube", "instagram", "twitter"],
+      tags: [<Youtube />, <Instagram />, <Twitter />],
       position: "left",
     },
   },
   {
     id: 4,
-    name: "Peter Hawkins",
+    name: "Peter Hollens",
     profession: "Musician",
-    avatar: "../assets/png/...",
+    avatar: peterHollens,
     badges: {
-      tags: ["youtube", "dingding"],
+      tags: [<Youtube />, <Shopify />],
       position: "right",
     },
   },
   {
     id: 5,
-    name: "Jessica Cay",
+    name: "Jessica",
     profession: "Streamer",
-    avatar: "../assets/png/...",
+    avatar: jessica,
     badges: {
-      tags: ["youtube", "instagram"],
+      tags: [<Youtube />, <Instagram />],
       position: "right",
     },
   },
@@ -75,7 +87,7 @@ export const Slider: React.FC<{}> = () => {
             avatar={avatar}
             profession={profession}
             position={profile.badges.position}
-            tags={[...profile.badges.tags]}
+            tags={profile.badges.tags}
           ></SliderItem>
         )
       })}
@@ -84,19 +96,19 @@ export const Slider: React.FC<{}> = () => {
 }
 
 export const SliderItem: React.FC<
-  DataTypes & { position: string; tags: string[] }
+  DataTypes & { position: string; tags: React.ReactNode[] }
 > = (props) => {
   const { name, avatar, profession, position, tags } = props
   return (
     <ItemWrapper>
-      <Bio>
-        <p>{name}</p>
-        <p>{profession}</p>
+      <Bio position={position}>
+        <Name>{name}</Name>
+        <Profession>{profession}</Profession>
       </Bio>
-      <Avatar src={avatar}/>
-      <Badges>
-        {tags.map((tag:string, index:number) => (
-          <Icon key={index}>{tag} position={position}</Icon>
+      <Avatar src={avatar} />
+      <Badges position={position}>
+        {tags.map((tag: React.ReactNode, index: number) => (
+          <Icon key={index}>{tag}</Icon>
         ))}
       </Badges>
     </ItemWrapper>
@@ -105,35 +117,70 @@ export const SliderItem: React.FC<
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
   height: 324px;
-  margin: 0 -120px;
-  background-color: #93ccce;
+  gap: 56px;
+  /* background-color: #93ccce; */
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  color: #191919;
 `
 const ItemWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  width: 250px;
+  margin-top: 60px;
   background-color: #ffffff;
 `
-const Bio = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 50px;
-`
-const Avatar = styled.img`
+const Bio = styled.div<{ position: string }>`
+  position: absolute;
+  bottom: ${(props) => (props.position === "left" ? "55px" : "")};
+  right: ${(props) => (props.position === "left" ? "-24px" : "")};
+  top: ${(props) => (props.position !== "left" ? "-24px" : "")};
+  left: ${(props) => (props.position !== "left" ? "-24px" : "")};
   display: flex;
-  width: 100px;
-  height: 100px;
+  flex-direction: column;
+  padding: 8px 12px;
+  background: #ffffff;
+  box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.1);
+  border-radius: 3.99744px;
+  z-index: 3;
 `
-const Badges = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 100px;
+const Name = styled.div`
+  font-size: 12px;
+  line-height: 12px;
+  margin-bottom: 13px;
+`
+const Profession = styled.div`
+  padding-top: 8px;
+  font-size: 10px;
+  line-height: 10px;
+  border-top: 1px solid #f7f2e4;
+  box-sizing: border-box;
+`
+
+const Avatar = styled.img`
+  width: 264px;
+  height: 264px;
+`
+const Badges = styled.div<{ position: string }>`
+  position: absolute;
+  bottom: ${(props) => (props.position === "left" ? "81px" : "")};
+  left: ${(props) => (props.position === "left" ? "-24px" : "")};
+  bottom: ${(props) => (props.position !== "left" ? "55px" : "")};
+  right: ${(props) => (props.position !== "left" ? "-24px" : "")};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.1);
+  border-radius: 3.99744px;
+  z-index: 3;
 `
 const Icon = styled.div`
   display: flex;

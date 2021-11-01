@@ -59,11 +59,9 @@ const Home: React.FC<any> = () => {
       <Previous onClick={previousPage}>
         <PreviousIcon />
       </Previous>
-      {/* <Header></Header> */}
       <MainContent>
         <Container children={pages[number].component} />
       </MainContent>
-      {/* <Footer></Footer> */}
       <Next onClick={nextPage}>
         <NextIcon />
       </Next>
@@ -72,46 +70,36 @@ const Home: React.FC<any> = () => {
 }
 
 const Wrapper = styled.div<{ blackBack: boolean }>`
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
-  /* grid-template-rows: 100px 1fr 100px; */
-  /* width: 100vw; */
   height: 100vh;
   margin: 0;
   padding: 0;
   background-color: ${(props) => (!props.blackBack ? "#191919" : "#ffffff")};
   color: ${(props) => (!props.blackBack ? "#ffffff" : "#000000")};
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `
 
 const MainContent = styled.div`
-  grid-column-start: 2;
-  grid-column-end: 3;
   display: flex;
-
-  /* height: 100vh; */
 `
-// const Header = styled(TabContainer)`
-//   grid-row-start: 1;
-//   grid-row-end: 2;
-//   background-color: #a5e9f1;
-// `
-// const Footer = styled(TabContainer)`
-//   grid-row-start: 3;
-//   grid-row-end: 4;
-//   background-color: #f3cccc;
-// `
+
 const SlideTab = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50px;
+  height: 100%;
   background-image: linear-gradient(
     to top,
     transparent 20%,
     rgba(129, 122, 122, 0.616) 50%,
     transparent 80%
   );
-  grid-row-start: 1;
-  grid-row-end: 4;
   z-index: 3;
   opacity: 0;
   transition: 0.8s;
@@ -120,14 +108,14 @@ const SlideTab = styled.div`
   }
 `
 const Previous = styled(SlideTab)`
-  grid-column-start: 1;
-  grid-column-end: 2;
-  /* background-color: #fff; */
+  top: 0;
+  left: 0;
+  /* background-color: #f55656; */
 `
 const Next = styled(SlideTab)`
-  grid-column-start: 3;
-  grid-column-end: 4;
-  /* background-color: #000; */
+  top: 0;
+  right: 0;
+  /* background-color: #59a769; */
 `
 
 export default Home

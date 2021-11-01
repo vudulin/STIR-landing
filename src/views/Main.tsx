@@ -42,7 +42,7 @@ export const Main: React.FC<{}> = () => {
       </Content>
       <Slider />
       <WindowContainer>
-        <Window>asfa</Window>
+        <Window></Window>
       </WindowContainer>
     </Wrapper>
   )
@@ -52,15 +52,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  padding: 0 70px;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `
 const Header = styled.div`
   display: flex;
@@ -68,7 +62,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 30px;
-  margin-top: 14px;
+  margin: 14px 120px 0 120px;
   padding: 5px 2px;
 `
 const Logo = styled.div`
@@ -139,7 +133,6 @@ const Button = styled.button`
     outline: none;
   }
 `
-
 
 const WindowContainer = styled.div`
   display: flex;
