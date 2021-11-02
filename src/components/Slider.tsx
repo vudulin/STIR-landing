@@ -121,7 +121,6 @@ const Wrapper = styled.div`
   align-items: flex-end;
   height: 324px;
   gap: 56px;
-  /* background-color: #93ccce; */
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -164,6 +163,7 @@ const Profession = styled.div`
 const Avatar = styled.img`
   width: 264px;
   height: 264px;
+  cursor: pointer;
 `
 const Badges = styled.div<{ position: string }>`
   position: absolute;
@@ -184,4 +184,5 @@ const Badges = styled.div<{ position: string }>`
 `
 const Icon = styled.div`
   display: flex;
+  cursor: pointer;
 `

@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { styled } from "@linaria/react"
 import LogoIcon from "../assets/icons/logo.svg"
 import { Slider } from "components/Slider"
+import { Window } from "components/Window"
+import { DashboardSnapshot } from "components/DashboardSnapshot"
 
 export const Main: React.FC<{}> = () => {
   const [email, setEmail] = useState("")
@@ -41,9 +43,9 @@ export const Main: React.FC<{}> = () => {
         )}
       </Content>
       <Slider />
-      <WindowContainer>
-        <Window></Window>
-      </WindowContainer>
+      <WindowWrapper>
+        <Window children={<DashboardSnapshot />} />
+      </WindowWrapper>
     </Wrapper>
   )
 }
@@ -67,11 +69,13 @@ const Header = styled.div`
 `
 const Logo = styled.div`
   align-items: center;
+  cursor: pointer;
 `
 const Join = styled.div`
   font-size: 14px;
   line-height: 20px;
   color: #222222;
+  cursor: pointer;
 `
 const Content = styled.div`
   display: flex;
@@ -80,7 +84,6 @@ const Content = styled.div`
   height: 345px;
   margin: 135px 70px 60px;
 `
-
 const Title = styled.div`
   width: 825px;
   margin: -8px 0 31px;
@@ -101,7 +104,6 @@ const Description = styled.div`
 const GetStarted = styled.form`
   display: flex;
 `
-
 const Input = styled.input`
   width: 476px;
   height: 56px;
@@ -129,26 +131,14 @@ const Button = styled.button`
   line-height: 14px;
   color: #ffffff;
   border: none;
+  cursor: pointer;
   &:focus {
     outline: none;
   }
 `
-
-const WindowContainer = styled.div`
+const WindowWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 610px;
-  overflow-y: hidden;
-`
-const Window = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1039px;
   height: 695px;
-  background: #7349ff;
-  box-shadow: 0px -16px 64px rgba(43, 42, 53, 0.32);
-  border-radius: 12px;
-  box-sizing: border-box;
 `
