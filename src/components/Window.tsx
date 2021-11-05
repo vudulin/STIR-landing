@@ -34,9 +34,7 @@ const menuItems = [
     icon: <Collectives />,
   },
 ]
-export const Window: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const Window: React.FC<{}> = () => {
   return (
     <Wrapper>
       <TabMenu>
@@ -50,7 +48,7 @@ export const Window: React.FC<{ children: React.ReactNode }> = ({
           )
         })}
       </TabMenu>
-      <Content>{children}</Content>
+      <Content></Content>
     </Wrapper>
   )
 }
@@ -69,7 +67,7 @@ const Wrapper = styled.div`
   box-shadow: 0px -16px 64px rgba(43, 42, 53, 0.32);
   border-radius: 12px;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 21;
 `
 const TabMenu = styled.ul`
   display: flex;
@@ -96,11 +94,12 @@ const Name = styled.div`
 
 const Content = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 1027px;
   height: 640px;
-  background: #ffffff;
+  background: url("assets/png/dashboard_snapshot.png");
+  background-position: top;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

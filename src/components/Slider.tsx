@@ -125,6 +125,7 @@ const Wrapper = styled.div`
   font-style: normal;
   font-weight: normal;
   color: #191919;
+  z-index: 20;
 `
 const ItemWrapper = styled.div`
   position: relative;

@@ -1,12 +1,6 @@
 import React, { useState } from "react"
 import { styled } from "@linaria/react"
-// import {
-//   BrowserRouter as Router,
-//   Redirect,
-//   Route,
-//   Switch,
-//   useHistory,
-// } from "react-router-dom"
+import { Route, Link } from "react-router-dom"
 
 import NextIcon from "../../assets/icons/left-arrow.svg"
 import PreviousIcon from "../../assets/icons/right-arrow.svg"
@@ -18,21 +12,25 @@ import { Payments } from "views/Payments"
 const pages = [
   {
     path: "/",
+    exact: true,
     src: "views/Main",
     component: <Main />,
   },
   {
     path: "/trusted",
+    exact: false,
     src: "views/Trusted",
     component: <Trusted />,
   },
   {
     path: "/stay-organized",
+    exact: false,
     src: "views/StayOrganized",
     component: <StayOrganized />,
   },
   {
     path: "/payments",
+    exact: false,
     src: "views/Payments",
     component: <Payments />,
   },
@@ -56,15 +54,29 @@ const Home: React.FC<any> = () => {
 
   return (
     <Wrapper blackBack={blackBack}>
-      <Previous onClick={previousPage}>
-        <PreviousIcon />
-      </Previous>
+      <Link
+        to={`${
+          number > 0 ? pages[number - 1].path : pages[pages.length - 1].path
+        }`}
+      >
+        <Previous onClick={previousPage}>
+          <PreviousIcon />
+        </Previous>
+      </Link>
       <MainContent>
-        <Container children={pages[number].component} />
+        <Route path={pages[number].path}>
+          <Container children={pages[number].component} />
+        </Route>
       </MainContent>
-      <Next onClick={nextPage}>
-        <NextIcon />
-      </Next>
+      <Link
+        to={`${
+          number + 1 < pages.length ? pages[number + 1].path : pages[0].path
+        }`}
+      >
+        <Next onClick={nextPage}>
+          <NextIcon />
+        </Next>
+      </Link>
     </Wrapper>
   )
 }

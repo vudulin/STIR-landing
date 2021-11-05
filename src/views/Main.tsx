@@ -3,7 +3,6 @@ import { styled } from "@linaria/react"
 import LogoIcon from "../assets/icons/logo.svg"
 import { Slider } from "components/Slider"
 import { Window } from "components/Window"
-import { DashboardSnapshot } from "components/DashboardSnapshot"
 
 export const Main: React.FC<{}> = () => {
   const [email, setEmail] = useState("")
@@ -44,7 +43,7 @@ export const Main: React.FC<{}> = () => {
       </Content>
       <Slider />
       <WindowWrapper>
-        <Window children={<DashboardSnapshot />} />
+        <Window />
       </WindowWrapper>
     </Wrapper>
   )
