@@ -1,12 +1,6 @@
 import React, { useState } from "react"
 import { styled } from "@linaria/react"
-// import {
-//   BrowserRouter as Router,
-//   Redirect,
-//   Route,
-//   Switch,
-//   useHistory,
-// } from "react-router-dom"
+import { Route, Link } from "react-router-dom"
 
 import NextIcon from "../../assets/icons/left-arrow.svg"
 import PreviousIcon from "../../assets/icons/right-arrow.svg"
@@ -18,21 +12,25 @@ import { Payments } from "views/Payments"
 const pages = [
   {
     path: "/",
+    exact: true,
     src: "views/Main",
     component: <Main />,
   },
   {
     path: "/trusted",
+    exact: false,
     src: "views/Trusted",
     component: <Trusted />,
   },
   {
     path: "/stay-organized",
+    exact: false,
     src: "views/StayOrganized",
     component: <StayOrganized />,
   },
   {
     path: "/payments",
+    exact: false,
     src: "views/Payments",
     component: <Payments />,
   },
@@ -56,72 +54,64 @@ const Home: React.FC<any> = () => {
 
   return (
     <Wrapper blackBack={blackBack}>
-      <Previous onClick={previousPage}>
-        <PreviousIcon />
-      </Previous>
-      {/* <Header></Header> */}
+      <Link
+        to={`${
+          number > 0 ? pages[number - 1].path : pages[pages.length - 1].path
+        }`}
+      >
+        <Previous onClick={previousPage}>
+          <PreviousIcon />
+        </Previous>
+      </Link>
       <MainContent>
-        <Container children={pages[number].component} />
+        <Route path={pages[number].path}>
+          <Container children={pages[number].component} />
+        </Route>
       </MainContent>
-      {/* <Footer></Footer> */}
-      <Next onClick={nextPage}>
-        <NextIcon />
-      </Next>
+      <Link
+        to={`${
+          number + 1 < pages.length ? pages[number + 1].path : pages[0].path
+        }`}
+      >
+        <Next onClick={nextPage}>
+          <NextIcon />
+        </Next>
+      </Link>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div<{ blackBack: boolean }>`
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
-  /* grid-template-rows: 100px 1fr 100px; */
-  width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
   background-color: ${(props) => (!props.blackBack ? "#191919" : "#ffffff")};
   color: ${(props) => (!props.blackBack ? "#ffffff" : "#000000")};
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `
-const TabContainer = styled.div`
-  grid-column-start: 2;
-  grid-column-end: 3;
+
+const MainContent = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 0 50px; */
 `
-const MainContent = styled(TabContainer)`
-  /* grid-row-start: 1; */
-  /* grid-row-start: 2; */
-  /* grid-row-end: 4; */
-  /* grid-row-end: 3; */
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  /* background-color: #daf08c; */
-`
-// const Header = styled(TabContainer)`
-//   grid-row-start: 1;
-//   grid-row-end: 2;
-//   background-color: #a5e9f1;
-// `
-// const Footer = styled(TabContainer)`
-//   grid-row-start: 3;
-//   grid-row-end: 4;
-//   background-color: #f3cccc;
-// `
+
 const SlideTab = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50px;
+  height: 100%;
   background-image: linear-gradient(
     to top,
     transparent 20%,
     rgba(129, 122, 122, 0.616) 50%,
     transparent 80%
   );
-  grid-row-start: 1;
-  grid-row-end: 4;
   z-index: 3;
   opacity: 0;
   transition: 0.8s;
@@ -130,14 +120,12 @@ const SlideTab = styled.div`
   }
 `
 const Previous = styled(SlideTab)`
-  grid-column-start: 1;
-  grid-column-end: 2;
-  /* background-color: #fff; */
+  top: 0;
+  left: 0;
 `
 const Next = styled(SlideTab)`
-  grid-column-start: 3;
-  grid-column-end: 4;
-  /* background-color: #000; */
+  top: 0;
+  right: 0;
 `
 
 export default Home
