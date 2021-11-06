@@ -122,12 +122,10 @@ const SlideTab = styled.div`
 const Previous = styled(SlideTab)`
   top: 0;
   left: 0;
-  /* background-color: #f55656; */
 `
 const Next = styled(SlideTab)`
   top: 0;
   right: 0;
-  /* background-color: #59a769; */
 `
 
 export default Home
