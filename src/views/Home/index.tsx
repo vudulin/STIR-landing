@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { styled } from "@linaria/react"
-import { Route, Link } from "react-router-dom"
+import { Switch, Route, Link } from "react-router-dom"
 
 import NextIcon from "../../assets/icons/left-arrow.svg"
 import PreviousIcon from "../../assets/icons/right-arrow.svg"
@@ -51,7 +51,7 @@ const Home: React.FC<any> = () => {
   const previousPage = () => {
     return number > 0 ? setNumber(number - 1) : setNumber(pages.length - 1)
   }
-
+  
   return (
     <Wrapper blackBack={blackBack}>
       <Link
@@ -59,21 +59,31 @@ const Home: React.FC<any> = () => {
           number > 0 ? pages[number - 1].path : pages[pages.length - 1].path
         }`}
       >
-        <Previous onClick={previousPage}>
+        <Previous /* onClick={previousPage} */>
           <PreviousIcon />
         </Previous>
       </Link>
       <MainContent>
-        <Route path={pages[number].path}>
+        <Switch>
+          {pages.map(
+            (page: { component: any; path: string; exact: boolean }) => (
+              <Route exact={page.exact} key={page.path} path={page.path}>
+                <Container children={page.component} />
+              </Route>
+            )
+          )}
+        </Switch>
+
+        {/* <Route path={pages[number].path}>
           <Container children={pages[number].component} />
-        </Route>
+        </Route> */}
       </MainContent>
       <Link
         to={`${
           number + 1 < pages.length ? pages[number + 1].path : pages[0].path
         }`}
       >
-        <Next onClick={nextPage}>
+        <Next /* onClick={nextPage} */>
           <NextIcon />
         </Next>
       </Link>
@@ -93,6 +103,9 @@ const Wrapper = styled.div<{ blackBack: boolean }>`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
 `
 
 const MainContent = styled.div`
