@@ -1,10 +1,11 @@
 import React from "react"
 import { styled } from "@linaria/react"
+
+import { Carousel } from "components/Carousel"
+
 import Axios from "assets/icons/label_axios.svg"
 import TheInformation from "assets/icons/label_information.svg"
 import TubeFilter from "assets/icons/label_tubefilter.svg"
-import Next from "assets/icons/slider_next.svg"
-import Previous from "assets/icons/slider_previous.svg"
 
 const icons = [
   {
@@ -24,11 +25,7 @@ export const Trusted: React.FC<{}> = () => {
   return (
     <Wrapper>
       <Title>Trusted by leaders of the creative community</Title>
-      <Slider></Slider>
-      <NavButtons>
-        <Previous />
-        <Next />
-      </NavButtons>
+      <Carousel />
       <Footer>
         <Featured>Featured in</Featured>
         <LabelList>
@@ -37,6 +34,13 @@ export const Trusted: React.FC<{}> = () => {
           ))}
         </LabelList>
       </Footer>
+      <Goal>
+        <GoalTitle>Welcome to Stir</GoalTitle>
+        <Description>
+          Our goal is to make every aspect of running your creator business
+          simple so you can be creative and change the world.
+        </Description>
+      </Goal>
     </Wrapper>
   )
 }
@@ -50,22 +54,12 @@ const Wrapper = styled.div`
 `
 const Title = styled.div`
   display: flex;
+  width: 525px;
   margin-top: 236px;
   margin-bottom: 102px;
   font-size: 40px;
   line-height: 48px;
-`
-const Slider = styled.div`
-  display: flex;
-  width: 100%;
-  height: 429px;
-`
-const NavButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
-  margin-top: 90px;
-  margin-bottom: 100px;
+  text-align: center;
 `
 const Footer = styled.div`
   display: flex;
@@ -81,6 +75,7 @@ const Featured = styled.div`
   letter-spacing: 0.559642px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
+  user-select: none;
 `
 const LabelList = styled.div`
   display: flex;
@@ -91,4 +86,32 @@ const Label = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+const Goal = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 199px;
+  padding-bottom: 247px;
+  background-color: #fff;
+  box-sizing: border-box;
+`
+const GoalTitle = styled.div`
+  display: flex;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #ff573d;
+  margin-bottom: 15px;
+`
+const Description = styled.div`
+  display: flex;
+  width: 790px;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 52px;
+  text-align: center;
+  color: #191919;
 `
