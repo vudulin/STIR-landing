@@ -53,9 +53,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
 `
 const Header = styled.div`
   display: flex;

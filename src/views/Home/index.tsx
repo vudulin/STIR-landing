@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
 import { styled } from "@linaria/react"
-import { Route, Link } from "react-router-dom"
+import { Routes, Route, Link, useLocation } from "react-router-dom"
 
 import NextIcon from "../../assets/icons/left-arrow.svg"
 import PreviousIcon from "../../assets/icons/right-arrow.svg"
@@ -12,25 +12,21 @@ import { Payments } from "views/Payments"
 const pages = [
   {
     path: "/",
-    exact: true,
     src: "views/Main",
     component: <Main />,
   },
   {
     path: "/trusted",
-    exact: false,
     src: "views/Trusted",
     component: <Trusted />,
   },
   {
     path: "/stay-organized",
-    exact: false,
     src: "views/StayOrganized",
     component: <StayOrganized />,
   },
   {
     path: "/payments",
-    exact: false,
     src: "views/Payments",
     component: <Payments />,
   },
@@ -41,39 +37,37 @@ const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 }
 
 const Home: React.FC<any> = () => {
-  const [number, setNumber] = useState(0)
-
-  const blackBack = number % 2 === 0
-
-  const nextPage = () => {
-    return number + 1 < pages.length ? setNumber(number + 1) : setNumber(0)
-  }
-  const previousPage = () => {
-    return number > 0 ? setNumber(number - 1) : setNumber(pages.length - 1)
-  }
-
+  const location = useLocation()
+  const index = pages.findIndex((page) => page.path === location.pathname)
+  const blackBack = index % 2 === 0
   return (
     <Wrapper blackBack={blackBack}>
       <Link
         to={`${
-          number > 0 ? pages[number - 1].path : pages[pages.length - 1].path
+          index > 0 ? pages[index - 1].path : pages[pages.length - 1].path
         }`}
       >
-        <Previous onClick={previousPage}>
+        <Previous>
           <PreviousIcon />
         </Previous>
       </Link>
       <MainContent>
-        <Route path={pages[number].path}>
-          <Container children={pages[number].component} />
-        </Route>
+        <Routes>
+          {pages.map((page: { component: any; path: string }) => (
+            <Route
+              key={page.path}
+              path={page.path}
+              element={<Container children={page.component} />}
+            />
+          ))}
+        </Routes>
       </MainContent>
       <Link
         to={`${
-          number + 1 < pages.length ? pages[number + 1].path : pages[0].path
+          index + 1 < pages.length ? pages[index + 1].path : pages[0].path
         }`}
       >
-        <Next onClick={nextPage}>
+        <Next>
           <NextIcon />
         </Next>
       </Link>
@@ -93,6 +87,9 @@ const Wrapper = styled.div<{ blackBack: boolean }>`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
 `
 
 const MainContent = styled.div`
